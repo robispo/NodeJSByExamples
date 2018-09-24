@@ -1,5 +1,3 @@
-console.log("Starting notes.js!");
-
 const fs = require("fs");
 
 const noteFileName = "note-data.json";
@@ -48,9 +46,14 @@ var remove = title => {
   }
 };
 
+var printNote = note => {
+  console.log(`Note\n----\nTitle: ${note.title}\nBody: ${note.body}`);
+};
+
 module.exports = {
   add,
   getAll,
   get,
-  remove
+  remove,
+  printNote
 };
