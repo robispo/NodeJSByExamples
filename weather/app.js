@@ -3,7 +3,7 @@ console.clear();
 const yargs = require("yargs");
 
 const geocode = require("./geocode/geocode");
-const forcecast = require("./forcecast");
+const weather = require("./weather");
 
 var argv = yargs
   .option({
@@ -22,6 +22,11 @@ geocode.geocodeAddress(argv.address, (error, data) => {
     console.log(error);
     return;
   }
-  forcecast.forecastWeather(data);
-  //   console.log(JSON.stringify(data, undefined, 2));
+  weather.getWeather(data.lat, data.lng, (error, data) => {
+    if (error) {
+      console.log(error);
+      return;
+    }
+    console.log(data);
+  });
 });
