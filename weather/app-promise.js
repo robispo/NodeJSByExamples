@@ -7,7 +7,8 @@ var argv = yargs
       demand: true,
       alias: "a",
       describe: "Address to fetch weather for",
-      string: true
+      string: true,
+      default: "7608 allentown rd md"
     }
   })
   .help()
@@ -27,5 +28,12 @@ axios
     console.log(r.data.results[0].locations[0].street);
     return axios.get(weatherUrl);
   })
-  .then(r => console.log(r.data.currently))
+  .then(r => {
+    var temperature = r.data.currently.temperature;
+    var apparentTemperature = r.data.currently.apparentTemperature;
+
+    console.log(
+      `The temperature is ${temperature}, but feels like ${apparentTemperature}`
+    );
+  })
   .catch(e => console.log("Error"));
