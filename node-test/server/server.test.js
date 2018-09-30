@@ -1,12 +1,26 @@
 const request = require("supertest");
+const expect = require("expect");
 
 const app = require("./server").app;
 
-it('should be responding "Hello World!!!"', done => {
+it('should be responding "Page not found."', done => {
   request(app)
     .get("/")
+    .expect(404)
+    .expect(resp => {
+      expect(resp.body).toInclude({ error: "Page not found." });
+    })
+    .end(done);
+});
+
+it("should be responding array of users", done => {
+  request(app)
+    .get("/users")
     .expect(200)
-    .expect("Hello World!!!")
+    .expect("Content-Type", /json/)
+    .expect(resp => {
+      expect(resp.body).toInclude({ name: "Wilmy", age: 24 });
+    })
     .end(done);
 });
 
