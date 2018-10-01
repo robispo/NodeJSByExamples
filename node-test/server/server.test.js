@@ -3,25 +3,30 @@ const expect = require("expect");
 
 const app = require("./server").app;
 
-it('should be responding "Page not found."', done => {
-  request(app)
-    .get("/")
-    .expect(404)
-    .expect(resp => {
-      expect(resp.body).toInclude({ error: "Page not found." });
-    })
-    .end(done);
-});
-
-it("should be responding array of users", done => {
-  request(app)
-    .get("/users")
-    .expect(200)
-    .expect("Content-Type", /json/)
-    .expect(resp => {
-      expect(resp.body).toInclude({ name: "Wilmy", age: 24 });
-    })
-    .end(done);
+describe("Server", () => {
+  describe("#GET /", () => {
+    it('should be responding "Page not found."', done => {
+      request(app)
+        .get("/")
+        .expect(404)
+        .expect(resp => {
+          expect(resp.body).toInclude({ error: "Page not found." });
+        })
+        .end(done);
+    });
+  });
+  describe("#GET /users", () => {
+    it("should be responding array of users", done => {
+      request(app)
+        .get("/users")
+        .expect(200)
+        .expect("Content-Type", /json/)
+        .expect(resp => {
+          expect(resp.body).toInclude({ name: "Wilmy", age: 24 });
+        })
+        .end(done);
+    });
+  });
 });
 
 // app.get("/user", function(req, res) {
