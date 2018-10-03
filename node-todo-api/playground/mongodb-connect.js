@@ -1,7 +1,12 @@
-const MongoClient = require("mongodb").MongoClient;
+// const MongoClient = require("mongodb").MongoClient;
+const { MongoClient, ObjectID } = require("mongodb");
 
 const url = "mongodb://localhost:27017";
 const dbName = "TodoApp";
+
+// const obj = new ObjectID();
+// console.log(obj);
+// console.log(obj.getTimestamp());
 
 MongoClient.connect(
   url,
@@ -29,20 +34,20 @@ MongoClient.connect(
     //   }
     // );
 
-    db.collection("Users").insertOne(
-        {
-          name: "Rabel",
-          age:29,
-          location:"USA"
-        },
-        (e, r) => {
-          if (e) {
-            console.log(e);
-            return;
-          }
-          console.log(JSON.stringify(r.ops, undefined, 2));
-        }
-      );
+    // db.collection("Users").insertOne(
+    //     {
+    //       name: "Rabel",
+    //       age:29,
+    //       location:"USA"
+    //     },
+    //     (e, r) => {
+    //       if (e) {
+    //         console.log(e);
+    //         return;
+    //       }
+    //       console.log(JSON.stringify(r.ops, undefined, 2));
+    //     }
+    //   );
 
     client.close();
   }
