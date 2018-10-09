@@ -12,18 +12,29 @@ mongoose.connect(
 );
 
 var Todo = mongoose.model("Todo", {
-  text: { type: String },
-  completed: { type: Boolean },
-  completedAt: { type: Number }
+  text: {
+    type: String,
+    require: true,
+    minlength: 1,
+    trim: true
+  },
+  completed: {
+    type: Boolean,
+    default: false
+  },
+  completedAt: {
+    type: Number,
+    default: null
+  }
 });
 
 // var newTodo = new Todo({
 //   text: "Buy some food"
 // });
 var newTodo = new Todo({
-  text: "finish work",
-  completed: true,
-  completedAt: 1
+  // text: "finish work",
+  // completed: true,
+  // completedAt: 1
 });
 
 newTodo
