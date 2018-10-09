@@ -17,8 +17,13 @@ var Todo = mongoose.model("Todo", {
   completedAt: { type: Number }
 });
 
+// var newTodo = new Todo({
+//   text: "Buy some food"
+// });
 var newTodo = new Todo({
-  text: "Buy some food"
+  text: "finish work",
+  completed: true,
+  completedAt: 1
 });
 
 newTodo
