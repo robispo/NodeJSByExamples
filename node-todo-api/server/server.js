@@ -11,33 +11,51 @@ mongoose.connect(
   mdOptions
 );
 
-var Todo = mongoose.model("Todo", {
-  text: {
-    type: String,
-    require: true,
-    minlength: 1,
-    trim: true
-  },
-  completed: {
-    type: Boolean,
-    default: false
-  },
-  completedAt: {
-    type: Number,
-    default: null
-  }
-});
+// var Todo = mongoose.model("Todo", {
+//   text: {
+//     type: String,
+//     require: true,
+//     minlength: 1,
+//     trim: true
+//   },
+//   completed: {
+//     type: Boolean,
+//     default: false
+//   },
+//   completedAt: {
+//     type: Number,
+//     default: null
+//   }
+// });
 
 // var newTodo = new Todo({
 //   text: "Buy some food"
 // });
-var newTodo = new Todo({
-  // text: "finish work",
-  // completed: true,
-  // completedAt: 1
+// var newTodo = new Todo({
+//   text: "finish work",
+//   completed: true,
+//   completedAt: 1
+// });
+
+// newTodo
+//   .save()
+//   .then(r => console.log(r))
+//   .catch(e => console.log(e));
+
+var User = mongoose.model("User", {
+  email: {
+    type: String,
+    require: true,
+    minlength: 1,
+    trim: true
+  }
 });
 
-newTodo
+var newUser = new User({
+  email: "rabelobispo@hotmail.com"
+});
+
+newUser
   .save()
   .then(r => console.log(r))
   .catch(e => console.log(e));
