@@ -1,61 +1,28 @@
-const mongoose = require("mongoose");
+const express = require("express");
+const bodyParser = require("body-parser");
 
-const dbName = "TodoApp";
-const port = process.env.PORT || 27017;
-const url = `mongodb://localhost:${port}/${dbName}`;
-const mdOptions = { useNewUrlParser: true };
+const { mongoose } = require("./db/mongoose");
+const { Todo } = require("./models/todo");
+const { User } = require("./models/user");
 
-mongoose.Promise = global.Promise;
-mongoose.connect(
-  url,
-  mdOptions
-);
+const app = express();
+const port = process.env.port || 3000;
 
-// var Todo = mongoose.model("Todo", {
-//   text: {
-//     type: String,
-//     require: true,
-//     minlength: 1,
-//     trim: true
-//   },
-//   completed: {
-//     type: Boolean,
-//     default: false
-//   },
-//   completedAt: {
-//     type: Number,
-//     default: null
-//   }
-// });
+app.use(bodyParser.json());
 
-// var newTodo = new Todo({
-//   text: "Buy some food"
-// });
-// var newTodo = new Todo({
-//   text: "finish work",
-//   completed: true,
-//   completedAt: 1
-// });
+app.post("/todos", (req, res) => {
+  var todo = new Todo({
+    text: req.body.text
+  });
 
-// newTodo
-//   .save()
-//   .then(r => console.log(r))
-//   .catch(e => console.log(e));
-
-var User = mongoose.model("User", {
-  email: {
-    type: String,
-    require: true,
-    minlength: 1,
-    trim: true
-  }
+  todo
+    .save()
+    .then(r => {
+      res.send(r);
+    })
+    .catch(e => {
+      res.status(400).send(e);
+    });
 });
 
-var newUser = new User({
-  email: "rabelobispo@hotmail.com"
-});
-
-newUser
-  .save()
-  .then(r => console.log(r))
-  .catch(e => console.log(e));
+app.listen(port, () => console.log(`App listening on port ${port}!`));
