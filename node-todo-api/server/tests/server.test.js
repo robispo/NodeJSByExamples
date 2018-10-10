@@ -4,10 +4,24 @@ const request = require("supertest");
 const { app } = require("./../server");
 const { Todo } = require("./../models/todo");
 
+const todosDumi = [
+  {
+    text: "1"
+  },
+  {
+    text: "2"
+  },
+  {
+    text: "3"
+  }
+];
+
 //Delete all the Todos before run the test.
-// beforeEach(done => {
-//   Todo.remove({}).then(() => done());
-// });
+beforeEach(done => {
+  Todo.deleteMany({})
+  .then(() => Todo.insertMany(todosDumi))
+  .then(() => done());
+});
 
 describe("POST /todos", () => {
   it("should create a new todo", done => {
@@ -64,6 +78,25 @@ describe("POST /todos", () => {
             done();
           })
           .catch(e => done(e));
+      });
+  });
+});
+
+describe("get /todos", () => {
+  it("should get all todos", done => {
+    request(app)
+      .get("/todos")
+      .expect(200)
+      .expect(res => {
+        expect(res.body.todos.length).toBeGreaterThan(0);
+      })
+      .end((err, res) => {
+        if (err) {
+          done(err);
+          return;
+        }
+
+        done();
       });
   });
 });
