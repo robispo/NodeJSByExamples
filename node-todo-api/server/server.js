@@ -20,9 +20,15 @@ app.post("/todos", (req, res) => {
     .then(r => {
       res.send(r);
     })
-    .catch(e => {
-      res.status(400).send(e);
-    });
+    .catch(e => res.status(400).send(e));
+});
+
+app.get("/todos", (req, res) => {
+  Todo.find()
+    .then(todos => {
+      res.send({ todos });
+    })
+    .catch(e => res.status(400).send(e));
 });
 
 app.listen(port, () => console.log(`App listening on port ${port}!`));

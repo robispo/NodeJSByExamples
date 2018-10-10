@@ -4,10 +4,9 @@ const request = require("supertest");
 const { app } = require("./../server");
 const { Todo } = require("./../models/todo");
 
-// beforeEach(done => {
 //Delete all the Todos before run the test.
-//Todo.remove({}).then(() => done());
-//   done();
+// beforeEach(done => {
+//   Todo.remove({}).then(() => done());
 // });
 
 describe("POST /todos", () => {
