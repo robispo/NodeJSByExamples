@@ -3,7 +3,7 @@ const request = require("supertest");
 const { ObjectID } = require("mongodb");
 
 const { app } = require("./../server");
-const { Todo } = require("./../models/todo");
+const { Todo } = require("./../models/models");
 
 const todosDumi = [
   {
@@ -126,7 +126,7 @@ describe("GET /todos/:id", () => {
 
   it("should get a 404 - id not found", done => {
     var hexId = new ObjectID().toHexString();
-    
+
     request(app)
       .get(`/todos/${hexId}`)
       .expect(404)
